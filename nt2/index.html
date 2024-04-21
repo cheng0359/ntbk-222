@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/cont.css">
+    <link rel="stylesheet" href="./css/can.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/tu.css">
+    <link rel="stylesheet" href="./css/zhuanpan.css">
+    <script type="text/javascript" src="extras/jquery.min.1.7.js"></script>
+    <script type="text/javascript" src="extras/jquery-ui-1.8.20.custom.min.js"></script>
+    <script type="text/javascript" src="extras/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="extras/modernizr.2.5.3.min.js"></script>
+    <title>Document</title>
+
+</head>
+
+<body>
+    <section class="navbar">
+        <div class="logo">
+            <a href="#">
+                <img class="nav-logo" src="image/logo.png" alt="">
+            </a>
+        </div>
+        <ul id="nav" class="nav">
+            <li class="slide2"></li>
+            <li class="dropdown-menu">
+
+                <a href="#" class="dropdown-a"><img src="image/home1.svg" alt="" class="icon1">Home</a>
+            </li>
+
+            <li class="dropdown-menu">
+
+                <a href="#" class="dropdown-a"><img src="image/pro1.svg" alt="" class="icon3">Project</a>
+                <div class="dropdown-content" style="width: 156.48px;">
+                    <a href="#" class="dropdown-page cool-link2">
+                        Background
+                    </a>
+                    <a href="#" class="dropdown-page cool-link2">
+                        Design
+                    </a>
+                    <a href="#" class="dropdown-page cool-link2">
+                        Results
+                    </a>
+                    <a href="./image/static/实验五 方差分析.pdf" class="dropdown-page cool-link2" target="_blank">
+                        Report
+                    </a>
+                    <a href="#" class="dropdown-page cool-link2" target="_blank">
+                        Supplementary information
+                    </a>
+                </div>
+            </li>
+            <li class="dropdown-menu">
+
+                <a href="#" class="dropdown-a"> <img src="image/lab1.svg" alt="" class="icon4">Lab Notebook</a>
+                <div class="dropdown-content" style="width: 226.72px;">
+                    <a href="#" class="dropdown-page cool-link2">
+                        Experiments
+                    </a>
+                    <a href="#" class="dropdown-page cool-link2">
+                        Notebook
+                    </a>
+                    <a href="#" class="dropdown-page cool-link2">
+                        Safety
+                    </a>
+                    <a href="#" class="dropdown-page cool-link2">
+                        Protocol
+                    </a>
+                </div>
+            </li>
+            <li class="dropdown-menu">
+                <a href="#" class="dropdown-a"><img src="image/齿轮单次.gif" alt="" class="icon2" id="gif-image">Team</a>
+                <div class="dropdown-content" style="width: 140.39px;">
+                    <a href="#" class="dropdown-page cool-link2">Members</a>
+                    <a href="#" class="dropdown-page cool-link2">Attributions</a>
+                </div>
+            </li>
+            <script>
+                var gifImage = document.getElementById('gif-image');
+
+                gifImage.addEventListener('mouseenter', function () {
+                    gifImage.src = gifImage.src; // 重新加载 GIF 图像
+                });
+            </script>
+        </ul>
+
+    </section>
+
+    <script>
+        $("#nav a").on("click", function () {
+            var position = $(this).parent().position();
+            var width = $(this).parent().width();
+            $("#nav .slide1").css({ opacity: 1, left: +position.left, width: width });
+        });
+        $("#nav a").on("mouseover", function () {
+            var position = $(this).parent().position();
+            var width = $(this).parent().width();
+            $("#nav .slide2").css({ opacity: 1, left: +position.left, width: width }).addClass("squeeze");
+        });
+        $("#nav a").on("mouseout", function () {
+            $("#nav .slide2").css({ opacity: 0 }).removeClass("squeeze");
+        });
+        var currentWidth = $("#nav li:nth-of-type(3) a").parent("li").width();
+        var current = $("li:nth-of-type(3) a").position();
+        $("#nav .slide1").css({ left: +current.left, width: currentWidth });
+    </script>
+
+    <div class="container">
+        <div class="can">
+            <div class="shangmian"></div>
+            <div class="calendar">
+                <label for="month">Select a month:</label>
+                <select id="month">
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                </select>
+                <table id="calendar">
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+            <script src="./js/can.js"></script>
+            <section class="zhuanpan">
+                <script src="//unpkg.com/vue@legacy"></script>
+                <span id="app">
+                    <!-- <span>Prize number: {{ prizeNumber }}</span> -->
+                    <!-- 整个转盘    -->
+                    <div class="wheel-wrapper">
+                        <!-- 中间的黄色小圆圈 -->
+                        <div class="wheel-pointer" @click="onClickRotate">
+                            Start
+                        </div>
+                        <div class="wheel-bg" :class="{freeze: freeze}" :style="`transform: rotate(${wheelDeg}deg)`">
+                            <div class="prize-list">
+                                <div class="prize-item-wrapper" v-for="(item,index) in prizeList" :key="index">
+                                    <div class="prize-item"
+                                        :style="`transform: rotate(${(360/ prizeList.length) * index}deg)`">
+                                        <div class="prize-name">
+                                            {{ item.name }}
+                                        </div>
+                                        <div class="prize-icon">
+                                            <img :src="item.icon">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        var Main = {
+                            data() {
+                                return {
+                                    freeze: false,
+                                    rolling: false,
+                                    wheelDeg: 0,
+                                    prizeNumber: 8,
+                                    prizeListOrigin: [
+                                        {
+                                            icon: "image/天气1.svg",
+                                            // name:'rain'                                   
+                                        },
+                                        {
+                                            icon: "image/天气2.svg",
+                                            // name: 'rain' 
+                                        },
+                                        {
+                                            icon: "image/天气3.svg",
+                                            // name: 'rain' 
+                                        },
+                                        {
+                                            icon: "image/天气4.svg",
+                                            // name: 'rain' 
+                                        },
+                                        {
+                                            icon: "image/天气5.svg",
+                                            // name: 'rain' 
+                                        },
+                                        {
+                                            icon: "image/天气6.svg",
+                                            //  name: 'rain' 
+                                        },
+                                        {
+                                            icon: "image/天气7.svg",
+                                            // name: 'rain' 
+                                        },
+                                        {
+                                            icon: "image/天气8.svg",
+                                            // name: 'rain' 
+                                        }
+                                    ]
+                                };
+                            },
+                            computed: {
+                                prizeList() {
+                                    return this.prizeListOrigin.slice(0, this.prizeNumber);
+                                }
+                            },
+                            methods: {
+                                onClickRotate() {
+                                    if (this.rolling) {
+                                        return;
+                                    }
+                                    const result = Math.floor(Math.random() * this.prizeList.length);
+                                    this.roll(result);
+                                },
+                                roll(result) {
+                                    this.rolling = true;
+                                    const { wheelDeg, prizeList } = this;
+                                    this.wheelDeg =
+                                        wheelDeg -
+                                        wheelDeg % 360 +
+                                        6 * 360 +
+                                        (360 - 360 / prizeList.length * result);
+                                    setTimeout(() => {
+                                        this.rolling = false;
+                                        // 媒体框输出结果
+                                        // alert("Result：" + prizeList[result].name);
+                                    }, 4500);
+                                }
+                            },
+                            watch: {
+                                prizeNumber() {
+                                    this.freeze = true;
+                                    this.wheelDeg = 0;
+
+                                    setTimeout(() => {
+                                        this.freeze = false;
+                                    }, 0);
+                                }
+                            }
+                        };
+                        var App = Vue.extend(Main);
+                        new App().$mount("#app");
+
+                    </script>
+            </section>
+        </div>
+
+        <div class="content">
+            <span style="font-size: 40px;color: brown;font-weight: 700;margin-left: 30px;margin-top: 20px;">To Do
+                List</span>
+                <img src="./image/未标题-1.gif" alt="" style="width: 10%;margin-left: 500px;">
+            <ul class="timeline">
+                <li class="timeline-event">
+                    <label class="timeline-event-icon"></label>
+                    <div class="timeline-event-copy">
+                        <p class="timeline-event-thumbnail">April 2011 - heute</p>
+                        <h3>Geil,Danke! GmbH</h3>
+                        <h4>Geschäftsführerin eines Web-Studios</h4>
+                        <p><strong>Schwerpunkt: Frontend-Entwicklung</strong><br>Entwickeln von anspruchsvollen,
+                            animierten,
+                            responsive und adaptive Webseiten mit HTML5, SCSS, jQuery; für alle Browser, optimiert für
+                            Desktop,
+                            Notebook, Smartphones und Tablets (iOS, Android, Windows).</p>
+                        <p><strong>Projektmanagement mit Scrum</strong><br>Ständiges Verbessern des agilen
+                            Entwicklungsprozesses
+                            beispielsweise durch Grunt, Yeoman, GIT, JIRA und BrowserStack.</p>
+                    </div>
+                </li>
+                <li class="timeline-event">
+                    <label class="timeline-event-icon"></label>
+                    <div class="timeline-event-copy">
+                        <p class="timeline-event-thumbnail">November 2009 - März 2011</p>
+                        <h3>Freelancer</h3>
+                        <h4>Designer und Autor</h4>
+                        <p>Konzeption, Design und Produktion von Digitalen Magazinen mit InDesign, der Adobe Digital
+                            Publishing
+                            Suite und HTML5. Co-Autorin der Fachbücher "Digitales Publizieren für Tablets" und "Adobe
+                            Digital
+                            Publishing Suite" erschienen im dpunkt.verlag.</p>
+                    </div>
+                </li>
+                <li class="timeline-event">
+
+
+
+                    <label class="timeline-event-icon"></label>
+                    <div class="timeline-event-copy">
+                        <p class="timeline-event-thumbnail">April 2011 - heute</p>
+                        <h3>konplan gmbh</h3>
+                        <h4>IT-Consultant</h4>
+                        <p><strong>Systemarchitektur, Consulting</strong><br>Konzeption und Modellierung von Systemen
+                            und
+                            APIs
+                            für
+                            Digital Publishing und Entitlement nach SOA</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+</html>

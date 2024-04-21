@@ -1,0 +1,59 @@
+
+.shangmian {
+    width: 100px;
+    height: 40px;
+    background: #f7e4a0;
+    margin-left: 30px;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+.can {
+    border-radius: 40px;
+    background-color: #f4bd49;
+}
+header {
+    background-color: #f4bd49;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.calendar {
+    margin:auto;
+    max-width: 600px;
+    padding: 20px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    background-color: #f4bd49;
+    
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    background-color: lightyellow;
+}
+
+th {
+    background-color: orange;
+}
+
+td.inactive {
+    background-color: lightyellow;
+    color: transparent;
+}
+
+td.today {
+    background-color: #f9f9f9;
+}
+
+td.active {
+    background-color: lightyellow;
+}

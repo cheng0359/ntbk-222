@@ -1,0 +1,19 @@
+.container{
+    width: 95%;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: auto;
+    border-radius: 40px;
+    background: #f4bd49;
+    padding: 20px;
+    margin-top: 100px;
+}
+
+.can{
+
+    flex: 0.2;
+
+}
+.content{
+    flex: auto;
+}

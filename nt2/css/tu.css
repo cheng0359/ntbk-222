@@ -1,0 +1,201 @@
+* {
+    /* box-sizing:border-box; */
+    padding: 0;
+    margin: 0;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border: 5px groove rgba(20, 195, 113, 0.288);
+    box-sizing: content-box;
+    background: #b4d495;
+    height: 60px;
+    z-index: 99;
+}
+
+.logo {
+    position: absolute;
+    top: 2px;
+    z-index: 4;
+    width: 50px;
+}
+
+.logo img {
+    width: 100%;
+}
+
+.nav {
+    right: 30px;
+    position: relative;
+    display: flex;
+    justify-content: end;
+    list-style: none;
+    width: 100%;
+}
+
+.nav li a {
+    position: relative;
+    padding: 15px 25px;
+    font: 500 20px '优设标题黑';
+    border: none;
+    outline: none;
+    color: rgb(70, 100, 180);
+    display: inline-block;
+    text-decoration: none;
+    z-index: 3;
+}
+.navbar a {
+    padding: 15px ;
+}
+.icon1,
+.icon2,
+.icon3,
+.icon4 {
+float: left;
+    width: 60px;
+}
+@media (max-width: 640px) {
+
+    /* 当窗口宽度小于600px时应用的样式 */
+    .icon1,
+    .icon2,
+    .icon3,
+    .icon4 {
+        display: none;
+        /* 隐藏图标 */
+    }}
+.dropdown-menu {
+    display: inline-block;
+}
+.dropdown-a {
+    padding: 0px 15px  !important;
+    line-height: 60px !important;
+}
+.dropdown-menu:hover .dropdown-content {
+    display: block;
+}
+.dropdown-menu:hover .icon1 {
+    content: url(../image/home2.svg);
+}
+
+.dropdown-menu:hover .icon3 {
+    content: url(../image/pro2.svg);
+}
+.dropdown-menu:hover .icon4 {
+    content: url(../image/lab2.svg);
+}
+.dropdown-content {
+    display: none;
+    background: #b4d495;
+    position: absolute;
+    border-radius: 0 0 25px 25px;
+    width: 103px;
+    opacity: 0;
+}
+       
+.dropdown-menu .dropdown-content a {
+    font-size: 14px;
+        display: block;
+            z-index: 10;
+            padding: 10px 10px;
+}
+.dropdown-page {
+    padding: 10px 20px !important;
+    text-align: center;
+}
+.dropdown-menu:hover .dropdown-content {
+    -webkit-animation: dropdown 1s forwards;
+    animation: dropdown 1s forwards;
+}
+
+@-webkit-keyframes dropdown {
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    0% {
+        -webkit-transform: translateX(20px);
+        transform: translateX(20px);
+    }
+}
+
+@keyframes dropdown {
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    0% {
+        -webkit-transform: translateX(20px);
+        transform: translateX(20px);
+    }
+}
+/* 以下为下拉菜单的标签悬浮下划线动画 ,使用伪元素*/
+.cool-link2 {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cool-link2:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    /* 本bottom用于修改与文字的距离 */
+    bottom: 7px;
+    width: 0;
+    height: 3px;
+    border-radius: 2px;
+    background: #4285f4;
+    transition: all .6s;
+    opacity: 0;
+}
+
+.cool-link2:hover:before {
+    width: 70%;
+    left: 15%;
+    right: 0;
+    opacity: 1;
+}
+
+/* 下拉菜单下划线动画结束 */
+.slide1,
+.slide2 {
+    position: absolute;
+    display: inline-block;
+    height: 60px;
+    border-radius: 10em;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1.05);
+}
+
+.slide1 {
+    background-color: rgb(170, 190, 255);
+    z-index: 2;
+}
+
+.slide2 {
+    opacity: 0;
+    background-color: rgba(140, 198, 113);
+    z-index: 1;
+    /* box-shadow: 0 0 20px #ffffffaa inset; */
+}
+
+.squeeze {
+    transform: scale(0.9);
+}
+
+
+
+
+.footer {
+    font-size: 100px;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    height: 400px;
+    background-color: pink;
+}

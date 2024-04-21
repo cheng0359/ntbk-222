@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/cont.css">
+    <link rel="stylesheet" href="./css/can.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/tu.css">
+    <link rel="stylesheet" href="./css/zhuanpan.css">
+    <script type="text/javascript" src="extras/jquery.min.1.7.js"></script>
+    <script type="text/javascript" src="extras/jquery-ui-1.8.20.custom.min.js"></script>
+    <script type="text/javascript" src="extras/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="extras/modernizr.2.5.3.min.js"></script>
+</head>
+<body>
+    <section class="zhuanpan">
+        <script src="//unpkg.com/vue@legacy"></script>
+        <span id="app">
+            <!-- <span>Prize number: {{ prizeNumber }}</span> -->
+            <!-- 整个转盘    -->
+            <div class="wheel-wrapper">
+                <!-- 中间的黄色小圆圈 -->
+                <div class="wheel-pointer" @click="onClickRotate">
+                    Start
+                </div>
+                <div class="wheel-bg" :class="{freeze: freeze}" :style="`transform: rotate(${wheelDeg}deg)`">
+                    <div class="prize-list">
+                        <div class="prize-item-wrapper" v-for="(item,index) in prizeList" :key="index">
+                            <div class="prize-item" :style="`transform: rotate(${(360/ prizeList.length) * index}deg)`">
+                                <div class="prize-name">
+                                    {{ item.name }}
+                                </div>
+                                <div class="prize-icon">
+                                    <img :src="item.icon">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                var Main = {
+                    data() {
+                        return {
+                            freeze: false,
+                            rolling: false,
+                            wheelDeg: 0,
+                            prizeNumber: 8,
+                            prizeListOrigin: [
+                                {
+                                    icon: "image/天气1.svg",
+                                    // name:'rain'                                   
+                                },
+                                {
+                                    icon: "image/天气2.svg",
+                                    // name: 'rain' 
+                                },
+                                {
+                                    icon: "image/天气3.svg",
+                                    // name: 'rain' 
+                                },
+                                {
+                                    icon: "image/天气4.svg",
+                                    // name: 'rain' 
+                                },
+                                {
+                                    icon: "image/天气5.svg",
+                                    // name: 'rain' 
+                                },
+                                {
+                                    icon: "image/天气6.svg",
+                                    //  name: 'rain' 
+                                },
+                                {
+                                    icon: "image/天气7.svg",
+                                    // name: 'rain' 
+                                },
+                                {
+                                    icon: "image/天气8.svg",
+                                    // name: 'rain' 
+                                }
+                            ]
+                        };
+                    },
+                    computed: {
+                        prizeList() {
+                            return this.prizeListOrigin.slice(0, this.prizeNumber);
+                        }
+                    },
+                    methods: {
+                        onClickRotate() {
+                            if (this.rolling) {
+                                return;
+                            }
+                            const result = Math.floor(Math.random() * this.prizeList.length);
+                            this.roll(result);
+                        },
+                        roll(result) {
+                            this.rolling = true;
+                            const { wheelDeg, prizeList } = this;
+                            this.wheelDeg =
+                                wheelDeg -
+                                wheelDeg % 360 +
+                                6 * 360 +
+                                (360 - 360 / prizeList.length * result);
+                            setTimeout(() => {
+                                this.rolling = false;
+                                // 媒体框输出结果
+                                // alert("Result：" + prizeList[result].name);
+                            }, 4500);
+                        }
+                    },
+                    watch: {
+                        prizeNumber() {
+                            this.freeze = true;
+                            this.wheelDeg = 0;
+
+                            setTimeout(() => {
+                                this.freeze = false;
+                            }, 0);
+                        }
+                    }
+                };
+                var App = Vue.extend(Main);
+                new App().$mount("#app");
+
+            </script>
+    </section>
+</body>
+</html>
